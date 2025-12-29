@@ -1,73 +1,79 @@
-# Welcome to your Lovable project
+# Smart Issue Board
 
-## Project info
+## Project Overview
+Smart Issue Board is a web application for managing issues in a project environment. 
+It allows users to create, track, and manage issues with features like priority, status, 
+assigned user, and similar issue detection. The application is designed to simulate 
+real-world issue tracking workflows.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## Tech Stack
 
-There are several ways of editing your application.
+- **Frontend:** React.js  
+  React was chosen for its component-based architecture, ease of creating dynamic 
+  user interfaces, and smooth integration with Firebase for authentication and 
+  database operations.
 
-**Use Lovable**
+- **Backend/Database:** Firebase Firestore  
+  Firestore provides a cloud-hosted NoSQL database, enabling real-time data 
+  updates and seamless storage of user and issue data.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Authentication:** Firebase Auth (Email/Password)  
+  Manages user sign-up, login, and session handling securely.
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Hosting:** Vercel  
+  Provides fast and reliable deployment for React applications.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Firestore Data Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The Firestore database has two main collections:
 
-Follow these steps:
+1. **users**
+users (collection)
+└── userId (document)
+└── email: string
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **issues**
+issues (collection)
+└── issueId (document)
+├── title: string
+├── description: string
+├── priority: string (Low/Medium/High)
+├── status: string (Open/In Progress/Done)
+├── assignedTo: string (user email or name)
+├── createdAt: timestamp
+├── updatedAt: timestamp
+└── createdBy: string (user email)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Handling Similar Issues
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+When creating a new issue, the system checks for existing issues with similar titles.  
+If a similar issue exists, the user is warned and prompted to confirm whether they still 
+want to create the new issue. This prevents duplicate entries and helps maintain a clean 
+and organized issue board.
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Confusing or Challenging Parts
 
-**Use GitHub Codespaces**
+- Implementing the **status transition rule**, which prevents an issue from moving 
+directly from "Open" to "Done", required careful validation logic.
+- Detecting **similar issues** required handling variations in issue titles and ensuring 
+that the system provides meaningful suggestions without being too strict or too lenient.
+- Managing **real-time updates** in Firestore for issue lists and filters.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## Future Improvements
 
-This project is built with:
+- Implement **role-based access control** for admin and user functionalities.
+- Add **advanced search and filter options**, such as keyword search and date range.
+- Include **notifications** or email alerts when issues are assigned or updated.
+- Improve **similar issue detection** using more sophisticated string similarity algorithms.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
