@@ -5,7 +5,6 @@ Smart Issue Board is a web application for managing issues in a project environm
 It allows users to create, track, and manage issues with features like priority, status, 
 assigned user, and similar issue detection. The application is designed to simulate 
 real-world issue tracking workflows.
-
 ---
 
 ## Tech Stack
